@@ -56,7 +56,7 @@ Things you may want to cover:
 | prefecture_id      | integer    | null: false                    |
 | handling_time_id   | integer    | null: false                    |
 | price              | integer    | null: false                    |
-| user               | references | null: false, foreign_key: true |
+| user_id            | references | null: false, foreign_key: true |
 
 ### Association
 - belongs_to :user  
@@ -65,10 +65,10 @@ Things you may want to cover:
 
 ## orders テーブル
 
-| Column | Type       | Options                        |
-|--------|------------|--------------------------------|
-| user   | references | null: false, foreign_key: true |
-| item   | references | null: false, foreign_key: true |
+| Column  | Type       | Options                        |
+|---------|------------|--------------------------------|
+| user_id | references | null: false, foreign_key: true |
+| item    | references | null: false, foreign_key: true |
 
 ### Association
 - belongs_to :user
@@ -86,7 +86,7 @@ Things you may want to cover:
 | house_number  | string     | null: false                    |
 | building_name | string     |                                |
 | phone_number  | string     | null: false                    |
-| order         | references | null: false, foreign_key: true |
+| order_id      | references | null: false, foreign_key: true |
 
 ### Association
 - belongs_to :order
