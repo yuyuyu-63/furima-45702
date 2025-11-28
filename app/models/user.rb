@@ -1,16 +1,34 @@
 class User < ApplicationRecord
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  # Devise のモジュール
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  validates :nickname, presence: true
-  validates :last_name, presence: true
-  validates :first_name, presence: true
-  validates :last_name_kana, presence: true,
-            format: { with: /\A[ァ-ヶー]+\z/ }
-  validates :first_name_kana, presence: true,
-            format: { with: /\A[ァ-ヶー]+\z/ }
-  validates :birthday, presence: true
+  # パスワード: 半角英数字混合
+  VALID_PASSWORD_REGEX = /\A(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]+\z/
 
+  # 名前: 全角(漢字・ひらがな・カタカナ)
+  VALID_NAME_REGEX = /\A[ぁ-んァ-ン一-龥々ー]+\z/
+
+  # フリガナ: 全角カタカナ
+  VALID_KANA_REGEX = /\A[ァ-ヶー－]+\z/
+
+  # パスワード（半角英数字混合）
+  validates :password,
+            format: { with: VALID_PASSWORD_REGEX,
+                      message: 'は半角英数字混合で入力してください' },
+            allow_nil: true  # 編集時など password 入力しないとき用
+
+  # ニックネーム
+  validates :nickname, presence: true
+
+  # 名前（全角）
+  validates :last_name,  presence: true, format: { with: VALID_NAME_REGEX }
+  validates :first_name, presence: true, format: { with: VALID_NAME_REGEX }
+
+  # フリガナ（全角カタカナ）
+  validates :last_name_kana,  presence: true, format: { with: VALID_KANA_REGEX }
+  validates :first_name_kana, presence: true, format: { with: VALID_KANA_REGEX }
+
+  # 誕生日
+  validates :birthday, presence: true
 end
