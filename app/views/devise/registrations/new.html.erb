@@ -1,0 +1,76 @@
+<%= render "shared/second-header" %>
+
+<h2>Sign up</h2>
+
+<%= render "devise/shared/error_messages", resource: resource %>
+
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+  <!-- ニックネーム -->
+  <div class="field">
+    <%= f.label :nickname, "ニックネーム" %><br />
+    <%= f.text_field :nickname, autofocus: true %>
+  </div>
+
+  <!-- メールアドレス -->
+  <div class="field">
+    <%= f.label :email, "メールアドレス" %><br />
+    <%= f.email_field :email, autocomplete: "email" %>
+  </div>
+
+  <!-- パスワード -->
+  <div class="field">
+    <%= f.label :password, "パスワード" %><br />
+    <% if @minimum_password_length %>
+      <em>(<%= @minimum_password_length %> 文字以上)</em><br />
+    <% end %>
+    <%= f.password_field :password, autocomplete: "new-password" %>
+  </div>
+
+  <!-- パスワード（確認） ※name属性はDevise標準のまま-->
+  <div class="field">
+    <%= f.label :password_confirmation, "パスワード（確認）" %><br />
+    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+  </div>
+
+  <!-- 苗字 -->
+  <div class="field">
+    <%= f.label :last_name, "苗字（姓）" %><br />
+    <%= f.text_field :last_name %>
+  </div>
+
+  <!-- 名前 -->
+  <div class="field">
+    <%= f.label :first_name, "名前（名）" %><br />
+    <%= f.text_field :first_name %>
+  </div>
+
+  <!-- 苗字カナ -->
+  <div class="field">
+    <%= f.label :last_name_kana, "苗字カナ（セイ）" %><br />
+    <%= f.text_field :last_name_kana %>
+  </div>
+
+  <!-- 名前カナ -->
+  <div class="field">
+    <%= f.label :first_name_kana, "名前カナ（メイ）" %><br />
+    <%= f.text_field :first_name_kana %>
+  </div>
+
+  <!-- 生年月日 -->
+  <div class="field">
+    <%= f.label :birthday, "生年月日" %><br />
+    <%= f.date_select :birthday,
+                      start_year: 1930,
+                      end_year: Time.current.year,
+                      default: Date.new(1990, 1, 1),
+                      use_month_numbers: true %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Sign up" %>
+  </div>
+<% end %>
+
+<%= render "devise/shared/links" %>
+
+<%= render "shared/second-footer" %>
