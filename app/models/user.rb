@@ -7,7 +7,7 @@ class User < ApplicationRecord
   VALID_PASSWORD_REGEX = /\A(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]+\z/
 
   # 名前: 全角(漢字・ひらがな・カタカナ)
-  VALID_NAME_REGEX = /\A[ぁ-んァ-ン一-龥々ー]+\z/
+  VALID_NAME_REGEX = /\A[ぁ-んァ-ヶ一-龥々ー]+\z/
 
   # フリガナ: 全角カタカナ
   VALID_KANA_REGEX = /\A[ァ-ヶー－]+\z/
