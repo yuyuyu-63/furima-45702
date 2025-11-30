@@ -48,4 +48,5 @@ class OrdersController < ApplicationController
       currency: 'jpy'
     )
   end
+  
 end
