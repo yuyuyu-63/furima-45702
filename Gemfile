@@ -85,4 +85,5 @@ end
 gem "sqlite3", "~> 1.4"
 
 gem 'devise'
+gem 'active_hash'
 
