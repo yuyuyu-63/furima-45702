@@ -32,4 +32,8 @@ class Item < ApplicationRecord
               less_than_or_equal_to: 9_999_999,
               message: "は¥300〜9,999,999の範囲で入力してください"
             }
+
+
+  has_one :order
+
 end
