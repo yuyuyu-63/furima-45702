@@ -5,12 +5,12 @@ const priceCalc = () => {
   const taxDom = document.getElementById("add-tax-price");
   const profitDom = document.getElementById("profit");
 
-  priceInput.addEventListener("input", () => {
+  const updatePrice = () => {
     const inputValue = priceInput.value;
 
-    if (inputValue === '' || isNaN(inputValue)) {
-      taxDom.innerHTML = '';
-      profitDom.innerHTML = '';
+    if (inputValue === "" || isNaN(inputValue)) {
+      taxDom.innerHTML = "";
+      profitDom.innerHTML = "";
       return;
     }
 
@@ -19,9 +19,16 @@ const priceCalc = () => {
 
     taxDom.innerHTML = tax;
     profitDom.innerHTML = profit;
-  });
+  };
+
+  priceInput.addEventListener("input", updatePrice);
+
+  updatePrice();
 };
 
-window.addEventListener('turbo:load', priceCalc);
+document.addEventListener("turbo:load", priceCalc);
 
-document.addEventListener('turbo:render', priceCalc);
+document.addEventListener("turbo:render", priceCalc);
+
+
+window.addEventListener('turbo:load', priceCalc);
