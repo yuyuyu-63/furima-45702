@@ -56,7 +56,3 @@ document.addEventListener("turbo:load", () => {
   });
 });
 
-
-
-document.addEventListener("turbo:load", setupPayjp);
-document.addEventListener("turbo:render", setupPayjp);
