@@ -2,15 +2,13 @@ document.addEventListener("turbo:load", () => {
   const form = document.getElementById("charge-form");
   if (!form) return;
 
-  const payjpPublicKeyMeta = document.querySelector('meta[name="payjp-public-key"]');
-  const publicKey = payjpPublicKeyMeta && payjpPublicKeyMeta.content;
-
-  if (!publicKey || !window.Payjp) {
+  const publicKeyMeta = document.querySelector('meta[name="payjp-public-key"]');
+  if (!publicKeyMeta || !window.Payjp) {
     console.warn("PAY.JP の公開鍵または Payjp オブジェクトが取得できていません");
     return;
   }
 
-  const payjp = Payjp(publicKey);
+  const payjp = Payjp(publicKeyMeta.content);
   const elements = payjp.elements();
 
   const numberElement = elements.create("cardNumber");
@@ -22,18 +20,31 @@ document.addEventListener("turbo:load", () => {
   const cvcElement = elements.create("cardCvc");
   cvcElement.mount("#cvc-form");
 
+  const cardError = document.getElementById("card-error");
+
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
+
+    if (cardError) cardError.textContent = "";
 
     const result = await payjp.createToken(numberElement);
 
     if (result.error) {
-      console.error(result.error);
-      alert("カード情報に誤りがあります。確認してください。");
+      if (cardError) {
+        cardError.textContent = result.error.message;
+      } else {
+        alert("カード情報に誤りがあります。確認してください。");
+      }
       return;
     }
 
-    const tokenId = result.id;
+    const tokenId = result.id || (result.token && result.token.id);
+    if (!tokenId) {
+      if (cardError) {
+        cardError.textContent = "カード情報の送信に失敗しました。";
+      }
+      return;
+    }
 
     const tokenInput = document.createElement("input");
     tokenInput.setAttribute("type", "hidden");
@@ -44,3 +55,8 @@ document.addEventListener("turbo:load", () => {
     form.submit();
   });
 });
+
+
+
+document.addEventListener("turbo:load", setupPayjp);
+document.addEventListener("turbo:render", setupPayjp);

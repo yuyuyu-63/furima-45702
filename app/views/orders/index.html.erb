@@ -31,10 +31,14 @@
     </div>
 
     <%= form_with model: @order_address, url: item_orders_path(@item), id: 'charge-form', class: 'transaction-form-wrap', local: true do |f| %>
+
       <div class='credit-card-form'>
+        <div id="card-error" class="card-error-message" style="color:red;"></div>
+
         <h1 class='info-input-haedline'>
           クレジットカード情報入力
         </h1>
+
         <div class="form-group">
           <div class='form-text-wrap'>
             <label class="form-text">カード情報</label>
@@ -48,6 +52,7 @@
             <%= image_tag 'card-amex.gif', class: 'card-logo'%>
           </div>
         </div>
+
         <div class="form-group">
           <div class='form-text-wrap'>
             <label class="form-text">有効期限</label>
@@ -57,6 +62,7 @@
             <div id="expiry-form" class="input-default"></div>
           </div>
         </div>
+
         <div class="form-group">
           <div class='form-text-wrap'>
             <label class="form-text">セキュリティコード</label>
@@ -65,11 +71,13 @@
           <div id="cvc-form" class="input-default"></div>
         </div>
       </div>
-      
+
+
       <div class='shipping-address-form'>
         <h1 class='info-input-haedline'>
           配送先入力
         </h1>
+
         <div class="form-group">
           <div class='form-text-wrap'>
             <label class="form-text">郵便番号</label>
@@ -77,6 +85,7 @@
           </div>
           <%= f.text_field :postal_code, class:"input-default", id:"postal-code", placeholder:"例）123-4567", maxlength:"8" %>
         </div>
+
         <div class="form-group">
           <div class='form-text-wrap'>
             <label class="form-text">都道府県</label>
@@ -84,6 +93,7 @@
           </div>
           <%= f.collection_select(:prefecture_id, Prefecture.all, :id, :name, {}, {class:"select-box", id:"prefecture"}) %>
         </div>
+
         <div class="form-group">
           <div class='form-text-wrap'>
             <label class="form-text">市区町村</label>
@@ -91,6 +101,7 @@
           </div>
           <%= f.text_field :city, class:"input-default", id:"city", placeholder:"例）横浜市緑区"%>
         </div>
+
         <div class="form-group">
           <div class='form-text-wrap'>
             <label class="form-text">番地</label>
@@ -98,6 +109,7 @@
           </div>
           <%= f.text_field :addresses, class:"input-default", id:"addresses", placeholder:"例）青山1-1-1"%>
         </div>
+
         <div class="form-group">
           <div class='form-text-wrap'>
             <label class="form-text">建物名</label>
@@ -105,6 +117,7 @@
           </div>
           <%= f.text_field :building, class:"input-default", id:"building", placeholder:"例）柳ビル103"%>
         </div>
+
         <div class="form-group">
           <div class='form-text-wrap'>
             <label class="form-text">電話番号</label>
@@ -117,6 +130,7 @@
       <div class='buy-btn'>
         <%= f.submit "購入" ,class:"buy-red-btn", id:"button" %>
       </div>
+
     <% end %>
   </div>
 </div>
