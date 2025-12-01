@@ -16,26 +16,29 @@ document.addEventListener("turbo:load", () => {
   const numberElement = elements.create("cardNumber");
   numberElement.mount("#number-form");
 
-  const expiryElement = elements.create("expiry");
+  const expiryElement = elements.create("cardExpiry");
   expiryElement.mount("#expiry-form");
 
-  const cvcElement = elements.create("cvc");
+  const cvcElement = elements.create("cardCvc");
   cvcElement.mount("#cvc-form");
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    const { error, token } = await payjp.createToken(numberElement);
-    if (error) {
-      console.error(error);
+    const result = await payjp.createToken(numberElement);
+
+    if (result.error) {
+      console.error(result.error);
       alert("カード情報に誤りがあります。確認してください。");
       return;
     }
 
+    const tokenId = result.id;
+
     const tokenInput = document.createElement("input");
     tokenInput.setAttribute("type", "hidden");
     tokenInput.setAttribute("name", "token");
-    tokenInput.value = token.id;
+    tokenInput.value = tokenId;
     form.appendChild(tokenInput);
 
     form.submit();
