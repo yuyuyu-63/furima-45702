@@ -29,7 +29,7 @@
                       destroy_user_session_path,
                       method: :delete,
                       class: "logout",
-                      data: { turbo: false } %>
+                      data: { turbo_method: :delete } %>
         </li>
 
       <% else %>
