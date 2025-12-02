@@ -25,11 +25,11 @@
         </li>
 
         <li>
-          <%= button_to "ログアウト",
-                        destroy_user_session_path,
-                        method: :delete,
-                        class: "logout",
-                        form: { "data-turbo" => "false" } %>
+          <%= link_to "ログアウト", 
+                      destroy_user_session_path,
+                      method: :delete,
+                      class: "logout",
+                      data: { turbo: false } %>
         </li>
 
       <% else %>
