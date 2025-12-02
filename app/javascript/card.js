@@ -29,34 +29,26 @@ document.addEventListener("turbo:load", () => {
 
     const result = await payjp.createToken(numberElement);
 
-    if (result.error) {
+    let tokenId = null;
+
+    if (!result.error) {
+      tokenId = result.id || (result.token && result.token.id);
+      if (tokenId) {
+        const tokenInput = document.createElement("input");
+        tokenInput.type = "hidden";
+        tokenInput.name = "token";
+        tokenInput.value = tokenId;
+        form.appendChild(tokenInput);
+      }
+    } else {
       if (cardError) {
         cardError.textContent = result.error.message;
       } else {
         alert("カード情報に誤りがあります。確認してください。");
       }
-      return;
     }
-
-    const tokenId = result.id || (result.token && result.token.id);
-    if (!tokenId) {
-      if (cardError) {
-        cardError.textContent = "カード情報の送信に失敗しました。";
-      }
-      return;
-    }
-
-    const tokenInput = document.createElement("input");
-    tokenInput.setAttribute("type", "hidden");
-    tokenInput.setAttribute("name", "token");
-    tokenInput.value = tokenId;
-    form.appendChild(tokenInput);
 
     form.submit();
   });
 });
 
-
-
-document.addEventListener("turbo:load");
-document.addEventListener("turbo:render");
